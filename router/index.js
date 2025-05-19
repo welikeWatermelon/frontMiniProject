@@ -21,6 +21,11 @@ import AllColumnsPage from '@/pages/AllColumnsPage.vue'
 
 
 const routes = [
+    {
+    path: '/',            // ✅ 이게 꼭 있어야 합니다!!!!
+    name: 'home',
+    component: MainPage
+  },
   { path: '/login', name: 'login', component: LoginPage },
   { path: '/register', name: 'register', component: RegisterPage },
   { path: '/main', name: 'main', component: MainPage },

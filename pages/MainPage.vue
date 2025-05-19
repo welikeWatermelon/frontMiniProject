@@ -29,28 +29,45 @@
 
     <!-- 추천 유튜브 건강 영상 -->
     <section class="youtube-box">
-      <h3>🎥 추천 건강 영상</h3>
-      <div class="video-grid">
-        <div class="video-item">
-          <img src="https://via.placeholder.com/100x60.png?text=운동" alt="영상1" />
-          <p>집에서 하는 홈트 운동 팁</p>
-        </div>
-        <div class="video-item">
-          <img src="https://via.placeholder.com/100x60.png?text=식단" alt="영상2" />
-          <p>건강한 식단 레시피</p>
-        </div>
+      <h3>🎥 추천 영양제 영상</h3>
+      <div v-if="isLoading" class="loading">
+        영상을 불러오는 중...
+      </div>
+      <div v-else-if="error" class="error">
+        {{ error }}
+      </div>
+      <div v-else class="video-grid">
+        <a 
+          v-for="video in youtubeVideos" 
+          :key="video.id" 
+          :href="`https://www.youtube.com/watch?v=${video.videoId}`" 
+          target="_blank" 
+          class="video-item"
+        >
+          <img :src="video.thumbnailUrl" :alt="video.title" />
+          <div class="video-info">
+            <p class="video-title">{{ video.title }}</p>
+            <p class="channel-name">{{ video.channelTitle }}</p>
+            <p class="view-count">조회수 {{ formatViewCount(video.viewCount) }}회</p>
+          </div>
+        </a>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
+import axios from 'axios'
 
 const isLoggedIn = ref(!!localStorage.getItem('token'))
 const router = useRouter()
+const youtubeVideos = ref([])
+const isLoading = ref(true)
+const error = ref(null)
 
+// 로그아웃 함수
 const logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('userId')
@@ -58,6 +75,52 @@ const logout = () => {
   alert('로그아웃 되었습니다.')
   router.push('/login')
 }
+
+// 조회수 포맷팅
+const formatViewCount = (count) => {
+  if (!count) return '0';
+  
+  if (count >= 1000000) {
+    return (count / 1000000).toFixed(1) + '백만'
+  } else if (count >= 10000) {
+    return (count / 10000).toFixed(1) + '만'
+  } else if (count >= 1000) {
+    return (count / 1000).toFixed(1) + '천'
+  } else {
+    return count
+  }
+}
+
+// 페이지 로드 시 유튜브 영상 데이터 가져오기
+onMounted(async () => {
+  try {
+    // 백엔드에서 최대 10개의 영양제 관련 인기 영상 가져오기
+    const response = await axios.get('/api/youtube/nutrition', {
+      params: { limit: 10 }
+    })
+    
+    if (response.data && response.data.length > 0) {
+      youtubeVideos.value = response.data
+      console.log('유튜브 영상 데이터:', youtubeVideos.value)
+    } else {
+      // 데이터가 없는 경우 영상 새로고침 API 호출
+      await axios.post('/api/youtube/refresh')
+      
+      // 새로고침 후 다시 데이터 조회
+      const refreshResponse = await axios.get('/api/youtube/nutrition', {
+        params: { limit: 10 }
+      })
+      youtubeVideos.value = refreshResponse.data
+      console.log('새로고침 후 유튜브 영상 데이터:', youtubeVideos.value)
+    }
+    
+    isLoading.value = false
+  } catch (err) {
+    console.error('유튜브 영상을 불러오는 중 오류가 발생했습니다:', err)
+    error.value = '영상을 불러올 수 없습니다. 잠시 후 다시 시도해주세요.'
+    isLoading.value = false
+  }
+})
 </script>
 
 <style scoped>
@@ -92,6 +155,10 @@ const logout = () => {
 .community-box,
 .youtube-box {
   margin-bottom: 30px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .community-box ul {
@@ -107,14 +174,72 @@ const logout = () => {
 }
 
 .video-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
+.video-item {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease;
+  display: block;
+}
+
+.video-item:hover {
+  transform: translateY(-5px);
+}
+
 .video-item img {
-  width: 100px;
-  height: 60px;
+  width: 100%;
   border-radius: 5px;
   margin-bottom: 5px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.video-info {
+  padding: 5px 0;
+}
+
+.video-title {
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  /* 2줄로 제한하고 넘치면 ...로 표시 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.channel-name {
+  margin: 0 0 3px 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.view-count {
+  margin: 0;
+  font-size: 11px;
+  color: #888;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+@media (max-width: 600px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
