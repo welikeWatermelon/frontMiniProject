@@ -121,36 +121,51 @@ onMounted(async () => {
   max-width: 800px;
   margin: 0 auto;
   background-color: #ffffff;
-  font-family: 'Pretendard', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .auth-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
 .auth-buttons a,
 .auth-buttons button {
-  color: #2c3e50;
+  color: #1976d2;
   text-decoration: none;
-  font-weight: bold;
-  background-color: #eaf2ff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: none;
+  font-weight: 600;
+  background-color: #e3f2fd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #bbdefb;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-buttons a:hover,
+.auth-buttons button:hover {
+  background-color: #bbdefb;
 }
 
 .quest-box,
 .community-box,
 .youtube-box {
   margin-bottom: 30px;
-  background-color: #f9f9f9;
+  background-color: #fefefe;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #bbdefb;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.05);
+}
+
+.quest-box h3,
+.community-box h3,
+.youtube-box h3 {
+  color: #1565c0;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
 }
 
 .community-box ul {
@@ -160,9 +175,15 @@ onMounted(async () => {
 
 .community-box li {
   padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-between;
+  color: #333;
+}
+
+.community-box li span {
+  color: #1565c0;
+  font-weight: bold;
 }
 
 .video-grid {
@@ -184,21 +205,18 @@ onMounted(async () => {
 
 .video-item img {
   width: 100%;
-  border-radius: 5px;
-  margin-bottom: 5px;
+  border-radius: 8px;
+  margin-bottom: 6px;
   aspect-ratio: 16/9;
   object-fit: cover;
-}
-
-.video-info {
-  padding: 5px 0;
+  border: 1px solid #e0e0e0;
 }
 
 .video-title {
   font-weight: bold;
-  margin: 0 0 5px 0;
   font-size: 14px;
-  /* 2줄로 제한하고 넘치면 ...로 표시 */
+  color: #1976d2;
+  margin-bottom: 2px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -207,22 +225,21 @@ onMounted(async () => {
 }
 
 .channel-name {
-  margin: 0 0 3px 0;
   font-size: 12px;
-  color: #666;
+  color: #9e9e9e;
 }
 
 .view-count {
-  margin: 0;
   font-size: 11px;
-  color: #888;
+  color: #9e9e9e;
 }
 
 .loading,
 .error {
   text-align: center;
   padding: 20px;
-  color: #666;
+  font-size: 0.95rem;
+  color: #9e9e9e;
 }
 
 .error {

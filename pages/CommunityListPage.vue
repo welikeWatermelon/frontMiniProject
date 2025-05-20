@@ -57,7 +57,36 @@ onMounted(() => {
 .community-page {
   max-width: 800px;
   margin: 30px auto;
-  padding: 20px;
+  padding: 24px;
+  background-color: #ffffff;
+  border: 1px solid #bbdefb;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.05);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.community-page h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #1976d2;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.community-page button {
+  padding: 8px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.community-page button:hover {
+  background-color: #1565c0;
 }
 
 .post-list {
@@ -66,17 +95,26 @@ onMounted(() => {
 }
 
 .post-list li {
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
+  padding: 16px;
+  border: 1px solid #bbdefb;
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin-bottom: 14px;
+  transition: background-color 0.2s ease;
   cursor: pointer;
 }
 
 .post-list li:hover {
-  background-color: #f0f8ff;
+  background-color: #e3f2fd;
+}
+
+.post-list h4 {
+  margin: 0 0 6px;
+  color: #1565c0;
 }
 
 .meta {
   font-size: 0.9rem;
-  color: #666;
+  color: #9e9e9e;
 }
 </style>

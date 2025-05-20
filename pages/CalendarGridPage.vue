@@ -117,9 +117,18 @@ onMounted(getDays)
 
 <style scoped>
 .calendar-grid-page {
-  padding: 20px;
+  padding: 24px;
   max-width: 800px;
   margin: 0 auto;
+  background-color: #ffffff;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.calendar-grid-page h2 {
+  color: #1976d2;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .calendar-header {
@@ -128,6 +137,21 @@ onMounted(getDays)
   align-items: center;
   gap: 20px;
   margin-bottom: 20px;
+}
+
+.calendar-header button {
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  color: #1565c0;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.calendar-header button:hover {
+  background-color: #bbdefb;
 }
 
 .weekday-row {
@@ -139,28 +163,34 @@ onMounted(getDays)
 }
 
 .weekday-cell {
-  padding: 8px 0;
-  background-color: #f0f0f0;
-  border-radius: 4px;
+  padding: 10px 0;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-radius: 6px;
+  font-weight: 500;
 }
 
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
-  margin-top: 10px;
 }
 
 .calendar-cell {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 6px;
-  background-color: #f9f9f9;
+  border: 1px solid #bbdefb;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #fefefe;
   cursor: pointer;
-  min-height: 80px;
+  min-height: 90px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: background-color 0.2s ease;
+}
+
+.calendar-cell:hover {
+  background-color: #e3f2fd;
 }
 
 .calendar-cell.empty {
@@ -169,13 +199,16 @@ onMounted(getDays)
   cursor: default;
 }
 
-.calendar-cell:hover {
-  background-color: #eaf4ff;
+.calendar-cell strong {
+  font-size: 1.1rem;
+  color: #1565c0;
 }
 
 .record-summary {
-  font-size: 0.8rem;
-  color: #333;
+  font-size: 0.85rem;
+  color: #9e9e9e;
   margin-top: 6px;
+  line-height: 1.4;
 }
+
 </style>

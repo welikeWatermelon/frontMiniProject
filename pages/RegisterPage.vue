@@ -96,31 +96,60 @@ const handleRegister = async () => {
 
 <style scoped>
 .register-container {
-  max-width: 500px;
+  max-width: 600px;
   margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #fafafa;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #bbdefb;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.05);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.register-container h2 {
+  text-align: center;
+  color: #1976d2;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 24px;
 }
 
 form div {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #1565c0;
 }
 
 input,
 select {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
+  border: 1px solid #90caf9;
+  border-radius: 6px;
   box-sizing: border-box;
+  font-size: 1rem;
 }
 
 button {
-  padding: 10px 15px;
-  background-color: #27ae60;
-  color: white;
+  width: 100%;
+  padding: 12px;
+  background-color: #1976d2;
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
+
+button:hover {
+  background-color: #1565c0;
+}
+
 </style>

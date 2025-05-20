@@ -46,11 +46,8 @@
   <div class="notification-box">
     <h3>🔔 알림 설정</h3>
     <input v-model="notificationMessage" placeholder="알림 메시지 입력" />
-
-    <!-- ✅ 알림 시간 선택 -->
     <input type="datetime-local" v-model="notificationTime" />
-
-    <button @click="registerNotification">알림 등록</button>
+    <button @click="registerNotification">알림 등록</button> <!-- 여기랑 연결됨 -->
   </div>
 
 
@@ -151,7 +148,7 @@ const registerNotification = async () => {
   try {
     await axios.post('http://localhost:8080/api/notifications', {
       message: notificationMessage.value,
-      notifiedAt: new Date(notificationTime.value).toISOString()
+      notifiedAt: notificationTime.value   // ⬅️ 바로 여기에 넣는 것이옵니다
     }, {
       params: { userId },
       headers: { Authorization: `Bearer ${token}` }
@@ -174,40 +171,75 @@ const registerNotification = async () => {
   padding: 30px;
   max-width: 700px;
   margin: 0 auto;
+  background-color: #ffffff;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.calendar-page h2 {
+  color: #1976d2;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+input[type="date"],
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #bbdefb;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
 }
 
 .time-buttons {
-  margin: 20px 0;
+  margin: 16px 0;
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  justify-content: center;
 }
 
 .time-buttons button {
-  padding: 6px 12px;
-  background-color: #e0f2ff;
-  border: none;
-  border-radius: 5px;
+  padding: 8px 16px;
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  border-radius: 6px;
+  color: #1565c0;
   cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
 }
 
-input {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-  box-sizing: border-box;
+.time-buttons button:hover {
+  background-color: #bbdefb;
 }
 
 .summary-box {
   margin-top: 30px;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  background-color: #fefefe;
+  border-radius: 10px;
+  border: 1px solid #bbdefb;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.06);
+}
+
+.summary-box h3 {
+  color: #1565c0;
+  margin-bottom: 16px;
 }
 
 .intake-list p {
   margin: 8px 0;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.intake-list strong {
+  color: #1976d2;
 }
 
 .message-box {
@@ -217,15 +249,38 @@ input {
 .message-box ul {
   list-style: disc;
   padding-left: 20px;
+  color: #9e9e9e;
+  font-size: 0.9rem;
 }
 
-/* 0520 알림 추가 */
+/* ✅ 알림 설정 박스 (0520) */
 .notification-box {
-  margin-top: 30px;
-  padding: 20px;
-  background-color: #fff9e6;
-  border: 1px solid #ffdb99;
-  border-radius: 8px;
+  margin-top: 40px;
+  padding: 24px;
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  border-radius: 10px;
 }
+
+.notification-box h3 {
+  color: #1976d2;
+  margin-bottom: 16px;
+}
+
+.notification-box button {
+  padding: 8px 16px;
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.notification-box button:hover {
+  background-color: #1565c0;
+}
+
 
 </style>

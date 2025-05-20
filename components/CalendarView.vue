@@ -89,17 +89,24 @@
   })
   </script>
   
-  <style scoped>
-  .notification-item {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    background-color: #fefefe;
-  }
-  
-  .notification-item.unread {
-    background-color: #fff8dc;
-    font-weight: bold;
-  }
-  </style>
+<style scoped>
+.calendar-view {
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.calendar-view h3 {
+  margin-bottom: 12px;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.calendar-view li {
+  color: #1565c0;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+</style>

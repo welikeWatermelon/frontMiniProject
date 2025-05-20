@@ -37,12 +37,53 @@ const submitColumn = async () => {
 <style scoped>
 .column-form {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 30px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border: 1px solid #bbdefb;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.06);
+  font-family: 'Noto Sans KR', sans-serif;
 }
-input, textarea {
+
+.column-form h2 {
+  color: #1976d2;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+input,
+textarea {
   width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
+  padding: 10px;
+  margin-bottom: 14px;
+  border: 1px solid #90caf9;
+  border-radius: 6px;
+  font-size: 1rem;
   box-sizing: border-box;
 }
+
+textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
+button {
+  padding: 10px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
 </style>

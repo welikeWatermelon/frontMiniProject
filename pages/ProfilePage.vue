@@ -27,20 +27,42 @@
   </script>
   
   <style scoped>
-  .profile-page {
-    padding: 30px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .profile-box {
-    background-color: #f0f8ff;
-    border: 1px solid #aaa;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .profile-box p {
-    margin: 10px 0;
-  }
+.profile-page {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #bbdefb;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.06);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.profile-page h2 {
+  text-align: center;
+  color: #1976d2;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.profile-box {
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  padding: 24px;
+  border-radius: 10px;
+}
+
+.profile-box p {
+  margin: 12px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.profile-box strong {
+  color: #1565c0;
+  display: inline-block;
+  width: 80px;
+}
+
   </style>

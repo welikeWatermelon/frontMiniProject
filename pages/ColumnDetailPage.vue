@@ -29,18 +29,38 @@ const formatDate = (dt) => new Date(dt).toLocaleDateString()
 .column-detail {
   max-width: 700px;
   margin: 30px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #bbdefb;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+  font-family: 'Noto Sans KR', sans-serif;
 }
+
+.column-detail h2 {
+  color: #1976d2;
+  margin-bottom: 12px;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
 .meta {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #9e9e9e;
+  margin-bottom: 16px;
 }
+
+hr {
+  border: none;
+  border-top: 1px solid #e3f2fd;
+  margin: 20px 0;
+}
+
 .content {
   font-size: 1rem;
-  line-height: 1.6;
+  color: #333;
+  line-height: 1.8;
+  white-space: pre-line;
 }
+
 </style>

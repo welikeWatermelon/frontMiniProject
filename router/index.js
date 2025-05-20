@@ -4,7 +4,6 @@ import RegisterPage from '@/pages/RegisterPage.vue'
 import MainPage from '@/pages/MainPage.vue'
 import NotificationPage from '@/pages/NotificationPage.vue'
 import BadgePage from '@/pages/BadgePage.vue'
-import FollowPage from '@/pages/FollowPage.vue'
 import ProfilePage from '@/pages/ProfilePage.vue'
 import CalendarGridPage from '@/pages/CalendarGridPage.vue'
 import CalendarDetailPage from '@/pages/CalendarPage.vue' // ← 기존 상세페이지
@@ -31,7 +30,6 @@ const routes = [
   { path: '/main', name: 'main', component: MainPage },
   { path: '/notifications', name: 'notifications', component: NotificationPage },
   { path: '/badges', name: 'badges', component: BadgePage },
-  { path: '/follows', name: 'follows', component: FollowPage },
   { path: '/profile', name: 'profile', component: ProfilePage },
   { path: '/calendar',  name: 'calendar-grid', component: CalendarGridPage},
   { path: '/calendar/:date',name: 'calendar-detail', component: CalendarDetailPage},

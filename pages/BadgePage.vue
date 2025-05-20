@@ -38,30 +38,57 @@
   </script>
   
   <style scoped>
-  .badge-page {
-    padding: 30px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .badge-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .badge-item {
-    text-align: center;
-    background-color: #f0f8ff;
-    border: 1px solid #aad;
-    padding: 15px;
-    border-radius: 10px;
-  }
-  
-  .badge-item img {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 10px;
-  }
+.badge-page {
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+.badge-page h2 {
+  text-align: center;
+  color: #1976d2;
+  margin-bottom: 24px;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+}
+
+.badge-item {
+  text-align: center;
+  background-color: #e3f2fd;          /* 전하의 하늘색 박스 컨셉 */
+  border: 1px solid #bbdefb;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.badge-item:hover {
+  transform: translateY(-4px);
+}
+
+.badge-item img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
+
+.badge-item p {
+  margin: 6px 0 4px;
+  font-weight: bold;
+  color: #1565c0;
+}
+
+.badge-item small {
+  display: block;
+  color: #9e9e9e;
+  font-size: 0.85rem;
+}
+
   </style>
