@@ -41,13 +41,31 @@
       </div>
     </div>
   </div>
+
+  <!-- 알림 등록 0520 새 코드드 -->
+  <div class="notification-box">
+    <h3>🔔 알림 설정</h3>
+    <input v-model="notificationMessage" placeholder="알림 메시지 입력" />
+
+    <!-- ✅ 알림 시간 선택 -->
+    <input type="datetime-local" v-model="notificationTime" />
+
+    <button @click="registerNotification">알림 등록</button>
+  </div>
+
+
 </template>
 
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
+// 추가 0520
+import { useRoute } from 'vue-router'
 
-const selectedDate = ref(new Date().toISOString().substring(0, 10))
+
+const route = useRoute() // 해당 날짜로 수정 0520
+const selectedDate = route.params.date // 해당 날짜로 수정 0520
+
 const intakeTime = ref('')
 const supplementName = ref('')
 const amountTakenMg = ref(0)
@@ -119,6 +137,36 @@ const groupedRecords = computed(() => {
 const formatReadableIntakes = (items) => {
   return items.map(i => `${i.supplementName} (${i.amountTakenMg}mg)`).join(', ')
 }
+
+// 0520 알림 추가
+const notificationMessage = ref('')
+const notificationTime = ref('')  // 사용자가 입력할 날짜/시간
+
+const registerNotification = async () => {
+  if (!notificationMessage.value.trim() || !notificationTime.value) {
+    alert("메시지와 알림 시간을 모두 입력해주세요!")
+    return
+  }
+
+  try {
+    await axios.post('http://localhost:8080/api/notifications', {
+      message: notificationMessage.value,
+      notifiedAt: new Date(notificationTime.value).toISOString()
+    }, {
+      params: { userId },
+      headers: { Authorization: `Bearer ${token}` }
+    })
+
+    alert('알림이 등록되었습니다!')
+    notificationMessage.value = ''
+    notificationTime.value = ''
+  } catch (err) {
+    console.error('알림 등록 실패:', err)
+    alert('알림 등록에 실패했습니다')
+  }
+}
+
+
 </script>
 
 <style scoped>
@@ -170,4 +218,14 @@ input {
   list-style: disc;
   padding-left: 20px;
 }
+
+/* 0520 알림 추가 */
+.notification-box {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff9e6;
+  border: 1px solid #ffdb99;
+  border-radius: 8px;
+}
+
 </style>
