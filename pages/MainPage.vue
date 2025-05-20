@@ -38,18 +38,13 @@
       </div>
       <div v-else class="video-grid">
         <a 
-          v-for="video in youtubeVideos" 
-          :key="video.id" 
-          :href="`https://www.youtube.com/watch?v=${video.videoId}`" 
+          v-for="(video, index) in youtubeVideos" 
+          :key="index" 
+          :href="video.youtubeUrl" 
           target="_blank" 
           class="video-item"
         >
-          <img :src="video.thumbnailUrl" :alt="video.title" />
-          <div class="video-info">
-            <p class="video-title">{{ video.title }}</p>
-            <p class="channel-name">{{ video.channelTitle }}</p>
-            <p class="view-count">조회수 {{ formatViewCount(video.viewCount) }}회</p>
-          </div>
+          <img :src="video.thumbnailUrl" alt="영양제 영상 썸네일" />
         </a>
       </div>
     </section>
@@ -94,29 +89,26 @@ const formatViewCount = (count) => {
 // 페이지 로드 시 유튜브 영상 데이터 가져오기
 onMounted(async () => {
   try {
-    // 백엔드에서 최대 10개의 영양제 관련 인기 영상 가져오기
-    const response = await axios.get('/api/youtube/nutrition', {
-      params: { limit: 10 }
-    })
-    
-    if (response.data && response.data.length > 0) {
-      youtubeVideos.value = response.data
-      console.log('유튜브 영상 데이터:', youtubeVideos.value)
-    } else {
-      // 데이터가 없는 경우 영상 새로고침 API 호출
-      await axios.post('/api/youtube/refresh')
-      
-      // 새로고침 후 다시 데이터 조회
-      const refreshResponse = await axios.get('/api/youtube/nutrition', {
-        params: { limit: 10 }
+    const response = await axios.get('/api/youtube/top10') // ← 여기만 변경!
+    // ✅ 배열인지 확인
+    const data = response.data
+    console.log('백엔드 응답:', data)
+    console.log("백엔드 응답 끝")
+
+    if (Array.isArray(data)) {
+      youtubeVideos.value = data
+
+      data.forEach((video, idx) => {
+        console.log(`[${idx + 1}] 썸네일: ${video.thumbnailUrl}`)
+        console.log(`[${idx + 1}] 링크: ${video.youtubeUrl}`)
       })
-      youtubeVideos.value = refreshResponse.data
-      console.log('새로고침 후 유튜브 영상 데이터:', youtubeVideos.value)
+    } else {
+      console.warn('응답 데이터가 배열이 아닙니다:', data)
     }
-    
+
     isLoading.value = false
   } catch (err) {
-    console.error('유튜브 영상을 불러오는 중 오류가 발생했습니다:', err)
+    console.error('유튜브 영상 호출 오류:', err)
     error.value = '영상을 불러올 수 없습니다. 잠시 후 다시 시도해주세요.'
     isLoading.value = false
   }

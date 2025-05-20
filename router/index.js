@@ -29,8 +29,6 @@ const routes = [
   { path: '/login', name: 'login', component: LoginPage },
   { path: '/register', name: 'register', component: RegisterPage },
   { path: '/main', name: 'main', component: MainPage },
-  // { path: '/community', name: 'community', component: CommunityPage },
-  // { path: '/calendar', name: 'calendar', component: CalendarPage },
   { path: '/notifications', name: 'notifications', component: NotificationPage },
   { path: '/badges', name: 'badges', component: BadgePage },
   { path: '/follows', name: 'follows', component: FollowPage },
