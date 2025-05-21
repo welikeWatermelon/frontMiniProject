@@ -1,8 +1,11 @@
-// 🧪 프론트 추가 5: ColumnDetailPage.vue
+<!-- src/pages/ColumnDetailPage.vue -->
 <template>
   <div class="column-detail">
     <h2>{{ column.title }}</h2>
-    <p class="meta">👨‍⚕️ 작성자: {{ column.pharmacistName }} | 📅 {{ formatDate(column.createdAt) }}</p>
+    <p class="meta">
+      👨‍⚕️ 작성자: {{ column.pharmacistName }} |
+      📅 {{ formatDate(column.createdAt) }}
+    </p>
     <hr />
     <p class="content">{{ column.content }}</p>
   </div>
@@ -16,10 +19,17 @@ import axios from 'axios'
 const column = ref({})
 const route = useRoute()
 const columnId = route.params.id
+const token = localStorage.getItem('token')
 
 onMounted(async () => {
-  const res = await axios.get(`http://localhost:8080/api/columns/${columnId}`)
-  column.value = res.data
+  try {
+    const res = await axios.get(`http://localhost:8080/api/columns/${columnId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    column.value = res.data
+  } catch (err) {
+    console.error('칼럼 상세 조회 실패:', err)
+  }
 })
 
 const formatDate = (dt) => new Date(dt).toLocaleDateString()
@@ -62,5 +72,4 @@ hr {
   line-height: 1.8;
   white-space: pre-line;
 }
-
 </style>

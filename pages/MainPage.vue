@@ -7,6 +7,7 @@
         <RouterLink to="/register">회원가입</RouterLink>
       </template>
       <template v-else>
+        <RouterLink to="/users/profile">나의프로필</RouterLink> <!-- ✅ 추가 -->
         <button @click="logout">로그아웃</button>
       </template>
     </div>
@@ -17,17 +18,6 @@
       <p>💧 물 8잔 마시기</p>
     </section>
 
-    <!-- 커뮤니티 인기 글 -->
-    <!-- <section class="community-box">
-      <h3>🔥 커뮤니티 인기 글</h3>
-      <ul>
-        <li>건강한 식습관 기르기 <span>💬 12</span></li>
-        <li>영양제 고르는 꿀팁 <span>💬 8</span></li>
-        <li>러닝 시작했습니다 <span>💬 5</span></li>
-      </ul>
-    </section> -->
-    
-    <!-- 커뮤니티 인기 글 (컴포넌트로 대체됨) -->
     <PopularCommunityBox />
 
     <!-- 추천 유튜브 건강 영상 -->
@@ -98,8 +88,6 @@ onMounted(async () => {
     const response = await axios.get('/api/youtube/top10') // ← 여기만 변경! (여기서 에러터짐)
     // ✅ 배열인지 확인
     const data = response.data
-    console.log('백엔드 응답:', data)
-    console.log("백엔드 응답 끝")
 
     if (Array.isArray(data)) {
       youtubeVideos.value = data
@@ -142,6 +130,7 @@ onMounted(async () => {
   color: #1976d2;
   text-decoration: none;
   font-weight: 600;
+    font-size: 0.95rem; /* ✅ 추가 */
   background-color: #e3f2fd;
   padding: 6px 12px;
   border-radius: 6px;

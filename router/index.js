@@ -12,10 +12,11 @@ import CommunityFormPage from '@/pages/CommunityFormPage.vue'
 import CommunityDetailPage from '@/pages/CommunityDetailPage.vue'
 // ✅ 새로 만든 페이지 컴포넌트 import
 import MyFollowListPage from '@/pages/MyFollowListPage.vue'
-import PharmacistDetailPage from '@/pages/PharmacistDetailPage.vue'
+// import PharmacistDetailPage from '@/pages/PharmacistDetailPage.vue'
 import ColumnDetailPage from '@/pages/ColumnDetailPage.vue'
 import ColumnFormPage from '@/pages/ColumnFormPage.vue'
 import AllColumnsPage from '@/pages/AllColumnsPage.vue'
+import PharmacistColumnsPage from '@/pages/PharmacistColumnsPage.vue'
 
 
 
@@ -30,7 +31,7 @@ const routes = [
   { path: '/main', name: 'main', component: MainPage },
   { path: '/notifications', name: 'notifications', component: NotificationPage },
   { path: '/badges', name: 'badges', component: BadgePage },
-  { path: '/profile', name: 'profile', component: ProfilePage },
+  // { path: '/profile', name: 'profile', component: ProfilePage },
   { path: '/calendar',  name: 'calendar-grid', component: CalendarGridPage},
   { path: '/calendar/:date',name: 'calendar-detail', component: CalendarDetailPage},
   { path: '/community', component: CommunityListPage },
@@ -40,10 +41,24 @@ const routes = [
     next('/community')  // 다시 커뮤니티 목록으로 강제 리다이렉트
   }},
   { path: '/my-follows', component: MyFollowListPage },
-{ path: '/pharmacists/:id', component: PharmacistDetailPage },
+// { path: '/pharmacists/:id', component: PharmacistDetailPage },
 { path: '/columns', component: AllColumnsPage }, // 전체 칼럼 보기
-{ path: '/columns/:id', component: ColumnDetailPage }, // 칼럼 상세
-{ path: '/columns/new', component: ColumnFormPage } // 칼럼 작성
+{
+  path: '/columns/:id',
+  component: ColumnDetailPage
+}, // 칼럼 상세
+{ path: '/columns/new', component: ColumnFormPage }, // 칼럼 작성
+// 약사의 칼럼들 다 보기
+{
+  path: '/pharmacist/:id',
+  name: 'PharmacistColumns',
+  component: PharmacistColumnsPage
+},
+{ path: '/register', name: 'register', component: RegisterPage },
+{
+  path: '/users/profile',
+  component: ProfilePage
+}
 ]
 
 const router = createRouter({

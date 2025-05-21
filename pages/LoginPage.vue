@@ -13,6 +13,10 @@
         <button type="submit">로그인</button>
       </form>
     </div>
+    <p class="signup-link">
+      👉 아직 계정이 없으신가요?
+      <RouterLink to="/register">회원가입</RouterLink>
+    </p>
   </template>
   
 <script setup>
@@ -103,6 +107,25 @@ button {
 button:hover {
   background-color: #1565c0;
 }
+
+
+.signup-link {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.signup-link a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
   </style>
   
   

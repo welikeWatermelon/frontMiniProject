@@ -1,36 +1,44 @@
 <template>
-    <div class="profile-page">
-      <h2>🙋‍♂️ 내 프로필</h2>
-      <div class="profile-box">
-        <p><strong>이메일:</strong> {{ user.email }}</p>
-        <p><strong>닉네임:</strong> {{ user.nickname }}</p>
-        <p><strong>가입일:</strong> {{ user.joinDate }}</p>
-      </div>
+  <div class="profile-page">
+    <h2>👤 나의 프로필</h2>
+    <div class="profile-box" v-if="profile">
+      <img :src="profile.profileImage" alt="프로필 이미지" class="profile-img" />
+      <p><strong>이름:</strong> {{ profile.name }}</p>
+      <p><strong>닉네임:</strong> {{ profile.nickname }}</p>
+      <p><strong>이메일:</strong> {{ profile.email }}</p>
+      <p><strong>생년월일:</strong> {{ profile.birthDate }}</p>
+      <p><strong>성별:</strong> {{ profile.gender }}</p>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, onMounted } from 'vue'
-  // import axios from 'axios'
-  
-  const user = ref({ email: '', nickname: '', joinDate: '' })
-  
-  onMounted(async () => {
-    // const res = await axios.get('/api/users/profile')
-    // user.value = res.data
-    user.value = {
-      email: 'user@example.com',
-      nickname: '건강왕',
-      joinDate: '2024-12-01'
-    }
-  })
-  </script>
-  
-  <style scoped>
+    <div v-else class="loading">프로필 정보를 불러오는 중...</div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+const profile = ref(null)
+const token = localStorage.getItem('token')
+const userId = localStorage.getItem('userId')
+
+onMounted(async () => {
+  try {
+    const res = await axios.get(`http://localhost:8080/users/profile`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { userId }
+    })
+    profile.value = res.data
+  } catch (err) {
+    console.error('프로필 정보 불러오기 실패:', err)
+  }
+})
+</script>
+
+<style scoped>
 .profile-page {
   max-width: 600px;
   margin: 40px auto;
-  padding: 30px;
+  padding: 24px;
   background-color: #ffffff;
   border: 1px solid #bbdefb;
   border-radius: 12px;
@@ -38,31 +46,29 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.profile-page h2 {
-  text-align: center;
+h2 {
   color: #1976d2;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 24px;
-}
-
-.profile-box {
-  background-color: #e3f2fd;
-  border: 1px solid #90caf9;
-  padding: 24px;
-  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .profile-box p {
-  margin: 12px 0;
   font-size: 1rem;
+  margin-bottom: 10px;
   color: #333;
 }
 
-.profile-box strong {
-  color: #1565c0;
-  display: inline-block;
-  width: 80px;
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 2px solid #90caf9;
 }
 
-  </style>
+.loading {
+  text-align: center;
+  color: #999;
+}
+</style>

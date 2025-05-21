@@ -9,9 +9,11 @@
           <h3>{{ f.name }}</h3>
           <RouterLink :to="`/pharmacists/${f.pharmacistId}`">📘</RouterLink>
           <p> 타이틀 : {{ f.email }}  약사 ID :  {{ f.pharmacistId }}</p>
-          <RouterLink :to="`/pharmacists/${f.pharmacistId}`">
-            <button>칼럼 보기</button>
-          </RouterLink>
+    
+          <!-- f.pharmacistId 로 쓰면서 이동하지 -->
+          <button class="view-columns-btn" @click="goToPharmacistColumns(f.pharmacistId)">
+            📘 칼럼 보기
+          </button>
         </div>
       </li>
     </ul>
@@ -20,20 +22,35 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 const follows = ref([])
 const token = localStorage.getItem('token')
-
+const router = useRouter()
 
 onMounted(async () => {
   const res = await axios.get('http://localhost:8080/api/follows/my', {
     headers: { Authorization: `Bearer ${token}` }
   })
-
-  console.log('팔로우 데이터 : ', res.data)
   follows.value = res.data
 })
+
+const goToPharmacistColumns = async (pharmacistId) => {
+  const res = await axios.post('http://localhost:8080/api/follows/pharmacist', {
+    pharmacistId
+  }, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+
+  // 응답 데이터를 넘기며 다음 페이지로 이동
+  router.push({
+    name: 'PharmacistColumns',
+    params: { id: pharmacistId },
+    state: { pharmacistName: res.data.pharmacistName, columns: res.data.columns }
+  })
+}
+
 </script>
 
 <style scoped>
@@ -110,6 +127,22 @@ onMounted(async () => {
 }
 
 .info button:hover {
+  background-color: #1565c0;
+}
+
+.view-columns-btn {
+  padding: 4px 10px;
+  margin-top: 6px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.view-columns-btn:hover {
   background-color: #1565c0;
 }
 
