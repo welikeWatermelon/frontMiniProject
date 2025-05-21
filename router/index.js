@@ -17,12 +17,31 @@ import ColumnDetailPage from '@/pages/ColumnDetailPage.vue'
 import ColumnFormPage from '@/pages/ColumnFormPage.vue'
 import AllColumnsPage from '@/pages/AllColumnsPage.vue'
 import PharmacistColumnsPage from '@/pages/PharmacistColumnsPage.vue'
-
-
+import LandigPage from '@/pages/LandigPage.vue'
+import PersonalInfoPage from '@/pages/ai/PersonalInfoPage.vue'
+import GreetingPage from '@/pages/ai/GreetingPage.vue'
+import HealthCategoryPage from '@/pages/ai/HealthCategoryPage.vue'
+import HealthDetailQuestionPage from '@/pages/ai/HealthDetailQuestionPage.vue'
+import HealthExtraConditionPage from '@/pages/ai/HealthExtraConditionPage.vue'
+import LifestyleIntroPage from '@/pages/ai/LifestyleIntroPage.vue'
+import LifestyleQuestionPage from '@/pages/ai/LifestyleQuestionPage.vue'
+import AnalysisLoadingPage from '@/pages/ai/AnalysisLoadingPage.vue'
+import MarketingSurveyPage from '@/pages/ai/MarketingSurveyPage.vue'
+import FinalResultPage from '@/pages/ai/FinalResultPage.vue'
 
 const routes = [
+  {
+  path: '/',
+  name: 'Landing',
+  component: () => import('@/pages/LandigPage.vue') // 또는 LandingPage.vue
+},
+{
+  path: '/recommend',
+  name: 'Recommend',
+  component: () => import('@/pages/LandigPage.vue') // 추천 페이지
+},
     {
-    path: '/',            // ✅ 이게 꼭 있어야 합니다!!!!
+    path: '/home',            // ✅ 이게 꼭 있어야 합니다!!!!
     name: 'home',
     component: MainPage
   },
@@ -58,6 +77,56 @@ const routes = [
 {
   path: '/users/profile',
   component: ProfilePage
+},
+{
+  path: '/ai/personal-info',
+  name: 'PersonalInfo',
+  component: PersonalInfoPage
+},
+{
+  path: '/ai/greeting',
+  name: 'Greeting',
+  component: GreetingPage
+},
+{
+  path: '/ai/health-category',
+  name: 'HealthCategory',
+  component: HealthCategoryPage
+},
+{
+  path: '/ai/health-detail',
+  name: 'HealthDetail',
+  component: HealthDetailQuestionPage
+},
+{
+  path: '/ai/health-condition',
+  name: 'HealthExtra',
+  component: HealthExtraConditionPage
+},
+{
+  path: '/ai/lifestyle-intro',
+  name: 'LifestyleIntro',
+  component: LifestyleIntroPage
+},
+{
+  path: '/ai/lifestyle-question',
+  name: 'LifestyleQuestion',
+  component: LifestyleQuestionPage
+},
+{
+  path: '/ai/analysis-loading',
+  name: 'AnalysisLoading',
+  component: AnalysisLoadingPage
+},
+{
+  path: '/ai/marketing-survey',
+  name: 'MarketingSurvey',
+  component: MarketingSurveyPage
+},
+{
+  path: '/ai/result',
+  name: 'FinalResult',
+  component: FinalResultPage
 }
 ]
 
