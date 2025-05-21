@@ -18,14 +18,17 @@
     </section>
 
     <!-- 커뮤니티 인기 글 -->
-    <section class="community-box">
+    <!-- <section class="community-box">
       <h3>🔥 커뮤니티 인기 글</h3>
       <ul>
         <li>건강한 식습관 기르기 <span>💬 12</span></li>
         <li>영양제 고르는 꿀팁 <span>💬 8</span></li>
         <li>러닝 시작했습니다 <span>💬 5</span></li>
       </ul>
-    </section>
+    </section> -->
+    
+    <!-- 커뮤니티 인기 글 (컴포넌트로 대체됨) -->
+    <PopularCommunityBox />
 
     <!-- 추천 유튜브 건강 영상 -->
     <section class="youtube-box">
@@ -55,6 +58,8 @@
 import { ref, onMounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import axios from 'axios'
+import PopularCommunityBox from '@/components/PopularCommunityBox.vue' // ✅ 추가
+
 
 const isLoggedIn = ref(!!localStorage.getItem('token'))
 const router = useRouter()
@@ -89,7 +94,8 @@ const formatViewCount = (count) => {
 // 페이지 로드 시 유튜브 영상 데이터 가져오기
 onMounted(async () => {
   try {
-    const response = await axios.get('/api/youtube/top10') // ← 여기만 변경!
+
+    const response = await axios.get('/api/youtube/top10') // ← 여기만 변경! (여기서 에러터짐)
     // ✅ 배열인지 확인
     const data = response.data
     console.log('백엔드 응답:', data)

@@ -1,5 +1,6 @@
 <template>
   <div class="calendar-grid-page">
+    
     <h2>📆 복용 캘린더</h2>
 
     <!-- 월 이동 헤더 -->
@@ -118,7 +119,7 @@ onMounted(getDays)
 <style scoped>
 .calendar-grid-page {
   padding: 24px;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   background-color: #ffffff;
   font-family: 'Noto Sans KR', sans-serif;
@@ -178,11 +179,11 @@ onMounted(getDays)
 
 .calendar-cell {
   border: 1px solid #bbdefb;
-  padding: 12px;
+  padding: 20px 12px;
   border-radius: 8px;
   background-color: #fefefe;
   cursor: pointer;
-  min-height: 90px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -210,5 +211,7 @@ onMounted(getDays)
   margin-top: 6px;
   line-height: 1.4;
 }
+
+
 
 </style>

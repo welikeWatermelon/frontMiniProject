@@ -61,7 +61,7 @@ import { useRoute } from 'vue-router'
 
 
 const route = useRoute() // 해당 날짜로 수정 0520
-const selectedDate = route.params.date // 해당 날짜로 수정 0520
+const selectedDate = ref(route.params.date) // 해당 날짜로 수정 0520
 
 const intakeTime = ref('')
 const supplementName = ref('')
@@ -83,6 +83,8 @@ const selectTime = (timeType) => {
 
 const saveIntake = async () => {
   try {
+    console.log('👑 토큰 확인:', token)
+
     await axios.post('http://localhost:8080/api/calendar/intake', {
       supplementName: supplementName.value,
       amountTakenMg: amountTakenMg.value,
@@ -106,6 +108,7 @@ const fetchSummary = async () => {
       params: { userId, date: selectedDate.value },
       headers: { Authorization: `Bearer ${token}` }
     })
+    
     summary.value = res.data
   } catch (err) {
     console.error(err)

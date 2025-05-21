@@ -16,7 +16,14 @@ export const fetchTodayNotifications = async () => {
   notifications.value = res.data
 }
 
+
 export const startNotificationWatcher = () => {
+  // 권한 요청 : 처음 한번만 실행됨
+  if (Notification.permission !== 'granted') {
+    Notification.requestPermission()
+  }
+
+  // 알림 감시 인터벌 시작
   setInterval(() => {
     const now = new Date()
 
@@ -27,11 +34,11 @@ export const startNotificationWatcher = () => {
       const diffMillis = notifyTime.getTime() - now.getTime()
       const diffMinutes = diffMillis / 1000 / 60
 
-      // ✅ 현재 시간 기준 5~10분 전 사이 알림만
-      if (diffMinutes >= 5 && diffMinutes <= 10 && !alreadyNotifiedIds.has(n.id)) {
+      // ✅ 현재 시간 기준 0~10분 전 사이 알림만
+      if (diffMinutes >= 0 && diffMinutes <= 10 && !alreadyNotifiedIds.has(n.id)) {
         new Notification(`🔔 ${n.message}!`)
         alreadyNotifiedIds.add(n.id)
       }
     }
-  }, 10000) // 10초마다 검사
+  }, 5000) // 10초마다 검사
 }

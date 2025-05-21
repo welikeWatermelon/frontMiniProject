@@ -1,6 +1,11 @@
 <template>
   <div class="community-page">
     <h2>📋 게시판</h2>
+    <div class="sort-buttons">
+  <button @click="fetchPosts('popular')">🔥 인기순</button>
+  <button @click="fetchPosts('recent')">🕒 최신순</button>
+  <button @click="fetchPosts('title')">🔤 제목순</button>
+</div>
     <RouterLink to="/community/new">
       <button>➕ 글 작성</button>
     </RouterLink>
@@ -26,11 +31,12 @@ const posts = ref([])
 
 const token = localStorage.getItem('token')
 
-const fetchPosts = async () => {
+const fetchPosts = async (sort = '') => {
   try {
     const res = await axios.get('http://localhost:8080/api/community/posts', {
+      params: { sort },
       headers: {
-        Authorization: `Bearer ${token}` // ✅ 토큰 추가
+        Authorization: `Bearer ${token}`
       }
     })
     posts.value = res.data
@@ -38,6 +44,7 @@ const fetchPosts = async () => {
     console.error('게시글 불러오기 실패:', err)
   }
 }
+
 
 
 const goToDetail = (postId) => {
@@ -49,8 +56,9 @@ const formatDate = (datetime) => {
 }
 
 onMounted(() => {
-  fetchPosts()
+  fetchPosts('recent')
 })
+
 </script>
 
 <style scoped>
@@ -117,4 +125,27 @@ onMounted(() => {
   font-size: 0.9rem;
   color: #9e9e9e;
 }
+
+.sort-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sort-buttons button {
+  padding: 6px 12px;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #bbdefb;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sort-buttons button:hover {
+  background-color: #bbdefb;
+}
+
 </style>

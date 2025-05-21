@@ -4,6 +4,7 @@
     <p class="meta">
       🖋 작성자: {{ post.authorName || '익명' }} <br />
       📅 작성일: {{ formatDate(post.createdAt) }}
+        👁 조회수: {{ post.viewCount || 0 }}
     </p>
     <hr />
     <p class="content">{{ post.content }}</p>
@@ -20,15 +21,19 @@
       <textarea v-model="newComment" placeholder="댓글 입력..."></textarea>
       <button @click="submitComment">댓글 등록</button>
     </section>
+
+      <button class="back-button" @click="goBack">목록</button>
+
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
 const route = useRoute()
+const router = useRouter()
 const postId = route.params.id
 const token = localStorage.getItem('token')
 
@@ -78,6 +83,11 @@ onMounted(() => {
   fetchPost()
   fetchComments()
 })
+
+const goBack = () => {
+  router.push('/community')
+}
+
 </script>
 
 <style scoped>
@@ -184,5 +194,24 @@ hr {
   cursor: pointer;
   color: #f44336;
 }
+
+.back-button {
+  margin-top: 30px;
+  padding: 8px 16px;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #bbdefb;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: block;
+  margin-left: auto;
+}
+
+.back-button:hover {
+  background-color: #bbdefb;
+}
+
 
 </style>

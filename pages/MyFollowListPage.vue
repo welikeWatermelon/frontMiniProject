@@ -8,7 +8,7 @@
         <div class="info">
           <h3>{{ f.name }}</h3>
           <RouterLink :to="`/pharmacists/${f.pharmacistId}`">📘</RouterLink>
-          <p>{{ f.title }}</p>
+          <p> 타이틀 : {{ f.email }}  약사 ID :  {{ f.pharmacistId }}</p>
           <RouterLink :to="`/pharmacists/${f.pharmacistId}`">
             <button>칼럼 보기</button>
           </RouterLink>
@@ -25,20 +25,13 @@ import axios from 'axios'
 const follows = ref([])
 const token = localStorage.getItem('token')
 
-// onMounted(async () => {
-//   const res = await axios.get('http://localhost:8080/api/follows/my', {
-//     headers: { Authorization: `Bearer ${token}` }
-//   })
-//   follows.value = res.data
-// })
 
 onMounted(async () => {
   const res = await axios.get('http://localhost:8080/api/follows/my', {
     headers: { Authorization: `Bearer ${token}` }
   })
-//   console.log('[👀 백엔드 응답 확인]', res.data) // ← 이게 콘솔에 나옴!
-//   console.log('[🐾 저장된 토큰]', token)
 
+  console.log('팔로우 데이터 : ', res.data)
   follows.value = res.data
 })
 </script>
